@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <litepal>
+        <dbname value="weather"/>
+        <version value="1"/>
+
+        <list>
+            <mapping class="com.imdongh.knowuweather.db.Province"/>
+            <mapping class="com.imdongh.knowuweather.db.City"/>
+            <mapping class="com.imdongh.knowuweather.db.County"/>
+        </list>
+    </litepal>
+
+</resources>
