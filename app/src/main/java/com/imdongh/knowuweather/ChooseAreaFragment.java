@@ -4,11 +4,12 @@ import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -49,6 +50,7 @@ public class ChooseAreaFragment extends Fragment {
     private City selectedCity;
     private int currentLevel;
     private ProgressDialog progressDialog;
+    private DialogFragment dialogFragment;
 
     @Nullable
     @Override
@@ -90,6 +92,8 @@ public class ChooseAreaFragment extends Fragment {
         });
         queryProvinces();
 
+        dialogFragment = new DialogFragment();
+
     }
 
     private void queryProvinces() {
@@ -107,6 +111,7 @@ public class ChooseAreaFragment extends Fragment {
 
         } else {
             String address = "http://guolin.tech/api/china";
+            Log.i("tag", "address:"+address);
             queryFromServer(address, "province");
 
         }
@@ -127,6 +132,7 @@ public class ChooseAreaFragment extends Fragment {
             currentLevel = LEVEL_CITY;
         } else {
             String address = "http://guolin.tech/api/china/"+selectedProvince.getProvinceCode();
+            Log.i("tag", "address:"+address);
             queryFromServer(address, "city");
         }
     }
@@ -146,7 +152,8 @@ public class ChooseAreaFragment extends Fragment {
             currentLevel = LEVEL_COUNTY;
         } else {
             String address = "http://guolin.tech/api/china/"+
-                    selectedProvince.getProvinceCode() + selectedCity.getCityCode();
+                    selectedProvince.getProvinceCode()+"/" + selectedCity.getCityCode();
+            Log.i("tag", "address:"+address);
             queryFromServer(address, "county");
         }
 
@@ -160,6 +167,7 @@ public class ChooseAreaFragment extends Fragment {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String responseText = response.body().string();
+                Log.i("tag", "responseText:"+responseText);
                 boolean result = false;
                 if (type .equals("province")) {
                     result = Utility.handleProvinceRespone(responseText);
@@ -167,6 +175,7 @@ public class ChooseAreaFragment extends Fragment {
                     result = Utility.handleCityRespone(responseText, selectedProvince.getId());
                 } else if (type .equals("county")) {
                     result = Utility.handleCountyRespone(responseText, selectedCity.getId());
+                    Log.i("tag", "handleCountyRespone:"+result);
                 }
                 if (result) {
                     getActivity().runOnUiThread(new Runnable() {
@@ -201,8 +210,8 @@ public class ChooseAreaFragment extends Fragment {
     private void showProgressDialog() {
         if (progressDialog == null) {
             progressDialog = new ProgressDialog(getActivity());
-            progressDialog.setMessage("正在查询，请稍后..");
-            progressDialog.setCancelable(false);
+            progressDialog.setMessage("正在加载，请稍后..");
+//            progressDialog.setCancelable(false);
             progressDialog.setCanceledOnTouchOutside(false);
         }
 
