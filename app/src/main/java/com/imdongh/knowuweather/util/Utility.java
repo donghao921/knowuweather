@@ -2,9 +2,11 @@ package com.imdongh.knowuweather.util;
 
 import android.text.TextUtils;
 
+import com.google.gson.Gson;
 import com.imdongh.knowuweather.db.City;
 import com.imdongh.knowuweather.db.County;
 import com.imdongh.knowuweather.db.Province;
+import com.imdongh.knowuweather.gson.Weather;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -76,5 +78,20 @@ public class Utility {
 
         return false;
     }
-    
+
+    public static Weather handleWeatherRespone(String respone) {
+        if (!TextUtils.isEmpty(respone)) {
+            try {
+                JSONObject jsonObject = new JSONObject(respone);
+                JSONArray jsonArray = jsonObject.getJSONArray("HeWeather");
+                String weatherContent = jsonArray.getJSONObject(0).toString();
+                return new Gson().fromJson(weatherContent, Weather.class);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return null;
+    }
+
 }
