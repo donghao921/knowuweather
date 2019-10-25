@@ -32,21 +32,22 @@
                 android:layout_centerInParent="true">
 
                 <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:textSize="20sp"
+                    android:textColor="#fff"
+                    android:text="AQI指数"/>
+                <TextView
                     android:id="@+id/aqi_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:textSize="40sp"
+                    android:textSize="20sp"
                     android:textColor="#fff"
                     android:hint="aqi"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:textSize="40sp"
-                    android:textColor="#fff"
-                    android:text="AQI指数"/>
+
 
             </LinearLayout>
 
@@ -64,21 +65,23 @@
                 android:layout_centerInParent="true">
 
                 <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:textSize="20sp"
+                    android:textColor="#fff"
+                    android:text="PM2.5指数"/>
+
+                <TextView
                     android:id="@+id/pm25_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:textSize="40sp"
+                    android:textSize="20sp"
                     android:textColor="#fff"
                     android:hint="aqi"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:textSize="40sp"
-                    android:textColor="#fff"
-                    android:text="PM2.5指数"/>
+
 
             </LinearLayout>
 
